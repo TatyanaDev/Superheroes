@@ -1,20 +1,21 @@
-'use strict';
+"use strict";
 
-const { Model } = require('sequelize');
+const { Model } = require("sequelize");
+
 module.exports = (sequelize, DataTypes) => {
   class Superpower extends Model {
-    static associate (models) {
-      Superpower.belongsTo(models.Supergero, {
-        foreignKey: 'heroId',
-        onUpdate: 'cascade',
-        onDelete: 'cascade',
+    static associate(models) {
+      Superpower.belongsTo(models.Superhero, {
+        foreignKey: "heroId",
+        onUpdate: "cascade",
+        onDelete: "cascade",
       });
     }
   }
   Superpower.init(
     {
       powerName: {
-        field: 'power_name',
+        field: "power_name",
         allowNull: false,
         unique: true,
         type: DataTypes.STRING(500),
@@ -22,16 +23,17 @@ module.exports = (sequelize, DataTypes) => {
           notNull: true,
           notEmpty: true,
         },
-        onDelete: 'cascade',
-        onUpdate: 'cascade',
+        onDelete: "cascade",
+        onUpdate: "cascade",
       },
     },
     {
       sequelize,
-      modelName: 'Superpower',
-      tableName: 'superpowers',
+      modelName: "Superpower",
+      tableName: "superpowers",
       underscored: true,
     }
   );
+
   return Superpower;
 };

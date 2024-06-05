@@ -1,25 +1,26 @@
-'use strict';
+"use strict";
 
-const { Model } = require('sequelize');
+const { Model } = require("sequelize");
+
 module.exports = (sequelize, DataTypes) => {
-  class Supergero extends Model {
-    static associate (models) {
-      Supergero.hasMany(models.Superpower, {
-        foreignKey: 'heroId',
-        onUpdate: 'cascade',
-        onDelete: 'cascade',
+  class Superhero extends Model {
+    static associate(models) {
+      Superhero.hasMany(models.Superpower, {
+        foreignKey: "heroId",
+        onUpdate: "cascade",
+        onDelete: "cascade",
       });
-      Supergero.hasMany(models.Image, {
-        foreignKey: 'heroId',
-        onUpdate: 'cascade',
-        onDelete: 'cascade',
+      Superhero.hasMany(models.Image, {
+        foreignKey: "heroId",
+        onUpdate: "cascade",
+        onDelete: "cascade",
       });
     }
   }
-  Supergero.init(
+  Superhero.init(
     {
       nickName: {
-        field: 'nick_name',
+        field: "nick_name",
         unique: true,
         allowNull: false,
         type: DataTypes.STRING(128),
@@ -29,27 +30,28 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       realName: {
-        field: 'real_name',
+        field: "real_name",
         unique: true,
         type: DataTypes.STRING(128),
       },
       originDescription: {
-        field: 'origin_description',
+        field: "origin_description",
         unique: true,
         type: DataTypes.STRING(500),
       },
       catchPhrase: {
-        field: 'catch_phrase',
+        field: "catch_phrase",
         unique: true,
         type: DataTypes.STRING,
       },
     },
     {
       sequelize,
-      modelName: 'Supergero',
-      tableName: 'supergeroes',
+      modelName: "Superhero",
+      tableName: "superheroes",
       underscored: true,
     }
   );
-  return Supergero;
+
+  return Superhero;
 };

@@ -1,5 +1,5 @@
-const createError = require('http-errors');
-const { Image } = require('../models');
+const createError = require("http-errors");
+const { Image } = require("../models");
 
 module.exports.createImages = async (req, res, next) => {
   try {
@@ -9,7 +9,7 @@ module.exports.createImages = async (req, res, next) => {
     } = req;
 
     const images = await Image.bulkCreate(
-      filename.map(stringImages => ({
+      filename.map((stringImages) => ({
         imagePath: stringImages,
         heroId: heroId,
       }))
@@ -21,16 +21,16 @@ module.exports.createImages = async (req, res, next) => {
   }
 };
 
-
 module.exports.getAllImages = async (req, res, next) => {
   try {
     const { pagination = {} } = req;
+
     const images = await Image.findAll({
       ...pagination,
     });
 
     if (!images.length) {
-      return next(createError(404, 'Images not found'));
+      return next(createError(404, "Images not found"));
     }
 
     res.status(200).send({
@@ -52,7 +52,7 @@ module.exports.deleteImage = async (req, res, next) => {
     });
 
     if (!rowsCount) {
-      return next(createError(404, 'Image not found'));
+      return next(createError(404, "Image not found"));
     }
 
     res.status(200).send({ data: `${rowsCount} Image successfully deleted` });

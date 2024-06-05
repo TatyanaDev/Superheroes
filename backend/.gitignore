@@ -1,7 +1,7 @@
-/node_modules/
-/.vscode/
-/.idea/
-**/sandbox/
+!.env.example
+!.sequelizerc 
+
 /sequelize*.json
+/node_modules/
+**/sandbox/
 /public
-/.env

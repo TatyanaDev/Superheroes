@@ -4,10 +4,10 @@ module.exports = {
   up: async (queryInterface, Sequelize) =>
     await queryInterface.createTable("images", {
       id: {
-        allowNull: false,
+        type: Sequelize.INTEGER,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER,
+        allowNull: false,
       },
       heroId: {
         field: "hero_id",
@@ -20,10 +20,9 @@ module.exports = {
         onDelete: "cascade",
         onUpdate: "cascade",
       },
-      imagePath: {
-        field: "image_path",
-        allowNull: false,
+      image: {
         type: Sequelize.TEXT,
+        allowNull: false,
         validate: {
           notNull: true,
           notEmpty: true,
@@ -33,13 +32,13 @@ module.exports = {
       },
       createdAt: {
         field: "created_at",
-        allowNull: false,
         type: Sequelize.DATE,
+        allowNull: false,
       },
       updatedAt: {
         field: "updated_at",
-        allowNull: false,
         type: Sequelize.DATE,
+        allowNull: false,
       },
     }),
 

@@ -3,48 +3,52 @@ const { Superhero, Superpower, Image } = require("../models");
 
 module.exports.createSuperhero = async (req, res, next) => {
   try {
-    const {
-      body,
-      body: { powerName, imagePath },
-    } = req;
+    const { body } = req;
 
-    const createdSuperhero = await Superhero.create(body);
-    const { id } = createdSuperhero;
+    const superhero = await Superhero.create(body);
 
-    if (!id) {
-      return next(createError(400, "Error when creating a hero"));
+    if (!superhero) {
+      return next(createError(400, "Error creating superhero"));
+    }
+
+    // Create superpowers
+    if (!body.superpowers?.length) {
+      return next(createError(400, "Superpowers data is missing or invalid"));
     }
 
     const superpowers = await Superpower.bulkCreate(
-      powerName.map((stringSuperpowers) => ({
-        powerName: stringSuperpowers,
-        heroId: id,
+      body.superpowers.map((superpower) => ({
+        superpower,
+        heroId: superhero.id,
       }))
     );
 
     if (!superpowers) {
-      return next(createError(400, "Error while creating super powers"));
+      return next(createError(400, "Error creating superpowers"));
+    }
+
+    // Create images
+    if (!body.images?.length) {
+      return next(createError(400, "Images data is missing or invalid"));
     }
 
     const images = await Image.bulkCreate(
-      imagePath.map((stringImages) => ({
-        imagePath: stringImages,
-        heroId: id,
+      body.images.map((image) => ({
+        image,
+        heroId: superhero.id,
       }))
     );
 
     if (!images) {
-      return next(createError(400, "Error while creating images"));
+      return next(createError(400, "Error creating images"));
     }
 
     res.status(201).send({
-      data: [
-        {
-          ...createdSuperhero.get(),
-          superpowers,
-          images,
-        },
-      ],
+      data: {
+        ...superhero.toJSON(),
+        superpowers,
+        images,
+      },
     });
   } catch (err) {
     next(err);
@@ -60,11 +64,13 @@ module.exports.getAllSuperheroes = async (req, res, next) => {
       include: [
         {
           model: Superpower,
-          attributes: ["id", "powerName"],
+          as: "superpowers",
+          attributes: ["id", "superpower"],
         },
         {
           model: Image,
-          attributes: ["id", "imagePath"],
+          as: "images",
+          attributes: ["id", "image"],
         },
       ],
     });
@@ -83,37 +89,35 @@ module.exports.getAllSuperheroes = async (req, res, next) => {
 
 module.exports.updateSuperhero = async (req, res, next) => {
   try {
-    const {
-      params: { id },
-      body,
-    } = req;
+    const { id } = req.params;
+    const { superpowers, images } = req.body;
 
-    const { powerName, imagePath } = body;
-
-    const [rowsCount, [updatedSuperhero]] = await Superhero.update(body, {
+    const [, [updatedSuperhero]] = await Superhero.update(req.body, {
       where: { id },
       returning: true,
     });
 
+    await Superpower.destroy({ where: { heroId: id } });
     await Superpower.bulkCreate(
-      powerName.map((stringSuperpowers) => ({
-        powerName: stringSuperpowers,
+      superpowers.map((superpower) => ({
+        superpower,
         heroId: id,
       }))
     );
 
+    await Image.destroy({ where: { heroId: id } });
     await Image.bulkCreate(
-      imagePath.map((stringImages) => ({
-        imagePath: stringImages,
+      images.map((image) => ({
+        image,
         heroId: id,
       }))
     );
 
-    if (rowsCount !== 1) {
-      return next(createError(400, "Superhero can't be updated"));
+    if (!updatedSuperhero) {
+      return next(createError(400, "Error updating superhero"));
     }
 
-    res.send({ data: { updatedSuperhero } });
+    res.status(200).send({ data: updatedSuperhero });
   } catch (err) {
     next(err);
   }
@@ -121,21 +125,17 @@ module.exports.updateSuperhero = async (req, res, next) => {
 
 module.exports.deleteSuperhero = async (req, res, next) => {
   try {
-    const {
-      params: { superheroId },
-    } = req;
+    const { id } = req.params;
 
-    const rowsCount = await Superhero.destroy({
-      where: { id: superheroId },
-    });
+    const rowsCount = await Superhero.destroy({ where: { id } });
 
-    if (!rowsCount) {
+    if (rowsCount !== 1) {
       return next(createError(404, "Superhero not found"));
     }
 
     res
       .status(200)
-      .send({ data: `${rowsCount} Superhero successfully deleted` });
+      .send({ message: `Superhero ${id} has successfully deleted` });
   } catch (err) {
     next(err);
   }

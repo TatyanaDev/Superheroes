@@ -9,8 +9,9 @@ superheroRouter
   .post(SuperheroController.createSuperhero)
   .get(paginate, SuperheroController.getAllSuperheroes);
 
-superheroRouter.patch("/:id", SuperheroController.updateSuperhero);
-
-superheroRouter.delete("/:superheroId", SuperheroController.deleteSuperhero);
+superheroRouter
+  .route("/:id")
+  .patch(SuperheroController.updateSuperhero)
+  .delete(SuperheroController.deleteSuperhero);
 
 module.exports = superheroRouter;

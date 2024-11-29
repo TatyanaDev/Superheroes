@@ -7,21 +7,22 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       Superpower.belongsTo(models.Superhero, {
         foreignKey: "heroId",
+        as: "superhero",
         onUpdate: "cascade",
         onDelete: "cascade",
       });
     }
   }
+
   Superpower.init(
     {
-      powerName: {
-        field: "power_name",
+      superpower: {
+        type: DataTypes.STRING(500),
         allowNull: false,
         unique: true,
-        type: DataTypes.STRING(500),
         validate: {
-          notNull: true,
-          notEmpty: true,
+          notNull: { msg: "Superpower cannot be null" },
+          notEmpty: { msg: "Superpower cannot be empty" },
         },
         onDelete: "cascade",
         onUpdate: "cascade",
@@ -32,6 +33,7 @@ module.exports = (sequelize, DataTypes) => {
       modelName: "Superpower",
       tableName: "superpowers",
       underscored: true,
+      timestamps: true,
     }
   );
 

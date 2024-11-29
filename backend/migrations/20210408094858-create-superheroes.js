@@ -4,41 +4,41 @@ module.exports = {
   up: async (queryInterface, Sequelize) =>
     await queryInterface.createTable("superheroes", {
       id: {
-        allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
         type: Sequelize.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+        allowNull: false,
       },
       nickName: {
         field: "nick_name",
-        unique: true,
-        allowNull: false,
         type: Sequelize.STRING(128),
+        allowNull: false,
+        unique: true,
       },
       realName: {
         field: "real_name",
-        unique: true,
         type: Sequelize.STRING(128),
+        unique: true,
       },
       originDescription: {
         field: "origin_description",
-        unique: true,
         type: Sequelize.STRING(500),
+        unique: true,
       },
       catchPhrase: {
         field: "catch_phrase",
-        unique: true,
         type: Sequelize.STRING,
+        unique: true,
       },
       createdAt: {
         field: "created_at",
-        allowNull: false,
         type: Sequelize.DATE,
+        allowNull: false,
       },
       updatedAt: {
         field: "updated_at",
-        allowNull: false,
         type: Sequelize.DATE,
+        allowNull: false,
       },
     }),
 

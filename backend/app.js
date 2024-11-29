@@ -1,8 +1,8 @@
 const express = require("express");
 const cors = require("cors");
-const errorHandler = require("./middlewares/error.handler.js");
-const { STATIC_PATH } = require("./config/config.js");
-const router = require("./routes/index.js");
+const errorHandler = require("./middlewares/error.handler.mw");
+const { STATIC_PATH } = require("./config/config");
+const router = require("./routes");
 
 const app = express();
 

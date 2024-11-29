@@ -5,9 +5,6 @@ const paginate = require("../middlewares/paginate.mw");
 const superpowerRouter = Router();
 
 superpowerRouter.get("/", paginate, SuperpowerController.getAllSuperpowers);
-superpowerRouter.delete(
-  "/:superpowerId",
-  SuperpowerController.deleteSuperpower
-);
+superpowerRouter.delete("/:id", SuperpowerController.deleteSuperpower);
 
 module.exports = superpowerRouter;

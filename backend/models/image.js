@@ -7,20 +7,21 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       Image.belongsTo(models.Superhero, {
         foreignKey: "heroId",
+        as: "superhero",
         onUpdate: "cascade",
         onDelete: "cascade",
       });
     }
   }
+
   Image.init(
     {
-      imagePath: {
-        field: "image_path",
-        allowNull: false,
+      image: {
         type: DataTypes.TEXT,
+        allowNull: false,
         validate: {
-          notNull: true,
-          notEmpty: true,
+          notNull: { msg: "Image cannot be null" },
+          notEmpty: { msg: "Image cannot be empty" },
         },
         onDelete: "cascade",
         onUpdate: "cascade",
@@ -31,6 +32,7 @@ module.exports = (sequelize, DataTypes) => {
       modelName: "Image",
       tableName: "images",
       underscored: true,
+      timestamps: true,
     }
   );
 

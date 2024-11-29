@@ -4,10 +4,10 @@ module.exports = {
   up: async (queryInterface, Sequelize) =>
     await queryInterface.createTable("superpowers", {
       id: {
-        allowNull: false,
+        type: Sequelize.INTEGER,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER,
+        allowNull: false,
       },
       heroId: {
         field: "hero_id",
@@ -20,11 +20,10 @@ module.exports = {
         onDelete: "cascade",
         onUpdate: "cascade",
       },
-      powerName: {
-        field: "power_name",
+      superpower: {
+        type: Sequelize.STRING(500),
         allowNull: false,
         unique: true,
-        type: Sequelize.STRING(500),
         validate: {
           notNull: true,
           notEmpty: true,
@@ -34,13 +33,13 @@ module.exports = {
       },
       createdAt: {
         field: "created_at",
-        allowNull: false,
         type: Sequelize.DATE,
+        allowNull: false,
       },
       updatedAt: {
         field: "updated_at",
-        allowNull: false,
         type: Sequelize.DATE,
+        allowNull: false,
       },
     }),
 

@@ -21,21 +21,17 @@ module.exports.getAllSuperpowers = async (req, res, next) => {
 
 module.exports.deleteSuperpower = async (req, res, next) => {
   try {
-    const {
-      params: { superpowerId },
-    } = req;
+    const { id } = req.params;
 
-    const rowsCount = await Superpower.destroy({
-      where: { id: superpowerId },
-    });
+    const rowsCount = await Superpower.destroy({ where: { id } });
 
-    if (!rowsCount) {
+    if (rowsCount !== 1) {
       return next(createError(404, "Superpower not found"));
     }
 
     res
       .status(200)
-      .send({ data: `${rowsCount} Superpower successfully deleted` });
+      .send({ message: `Superpower ${id} has successfully deleted` });
   } catch (err) {
     next(err);
   }

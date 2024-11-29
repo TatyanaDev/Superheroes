@@ -1,5 +1,6 @@
 !.env.example
-!.sequelizerc 
+!.sequelizerc
+!.prettierrc.json
 
 /sequelize*.json
 /node_modules/

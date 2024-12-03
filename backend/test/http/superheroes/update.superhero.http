@@ -1,9 +1,26 @@
-PATCH http://localhost:5000/api/superheroes/5 HTTP/1.1
-Content-Type: application/json
+PATCH http://localhost:5000/api/superheroes/51 HTTP/1.1
+Content-Type: multipart/form-data; boundary=------------------------boundary123
 
-{
-  "nickName": "Captain America",
-  "realName": "Stephen Rogers",
-  "superpowers": ["adaptive memory","underwater breathing","self-healing","generation of additional hands"],
-  "images": ["updated image path","updated image path","updated image path"]
-}
+--------------------------boundary123
+Content-Disposition: form-data; name="nickName"
+
+Captain America
+--------------------------boundary123
+Content-Disposition: form-data; name="realName"
+
+Stephen Rogers
+--------------------------boundary123
+Content-Disposition: form-data; name="superpowers"
+
+["adaptive memory", "underwater breathing", "self-healing", "generation of additional hands"]
+--------------------------boundary123
+Content-Disposition: form-data; name="images"; filename="updated-image-1.jpg"
+Content-Type: image/jpeg
+
+@C:/path/to/updated-image-1.jpg
+--------------------------boundary123
+Content-Disposition: form-data; name="images"; filename="updated-image-2.jpg"
+Content-Type: image/jpeg
+
+@C:/path/to/updated-image-2.jpg.jpg
+--------------------------boundary123--

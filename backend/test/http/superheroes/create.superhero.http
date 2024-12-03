@@ -1,56 +1,237 @@
 POST http://localhost:5000/api/superheroes HTTP/1.1
-Content-Type: application/json
+Content-Type: multipart/form-data; boundary=------------------------boundary123
 
-{
-  "nickName": "Superman",
-  "realName": "Clark Kent",
-  "originDescription": "He was born Kal-El on the planet Krypton, before being rocketed to Earth as an infant by his scientist father Jor-El, moments before Krypton's destruction",
-  "catchPhrase": "'Look, up in the sky, it's a bird, it's a plane, it's Superman!'",
-  "superpowers": ["impenetrability","superpower","flight","self-healing","supervision and super hearing"],
-  "images": ["image path","image path","image path"]
-}
+# ========== Superman ==========
 
-# {
-#   "nickName": "Spider-Man",
-#   "realName": "Peter Parker",
-#   "originDescription": "Once he was an ordinary schoolboy, but he was bitten by a radioactive spider and endowed with wonderful abilities. Once he did not stop a petty robber when there was an opportunity and he killed his uncle, which injured the Spider and he decided to fight evil",
-#   "catchPhrase": "'The more strength, the more responsibility'",
-#   "superpowers": ["superhuman reflexes","'Spider-instinct'","ability to adhere to hard surfaces","web production"],
-#   "images": ["image path","image path","image path"]
-# }
+--------------------------boundary123
+Content-Disposition: form-data; name="nickName"
 
-# {
-#   "nickName": "Batman",
-#   "realName": "Bruce Wayne",
-#   "originDescription": "His parents were killed in an alley by a petty robber, which inflicted severe mental trauma on the boy and he decided to fight evil",
-#   "catchPhrase": "'Because I am Batman!'",
-#   "superpowers": ["intelligence","extensive knowledge","martial arts knowledge","dexterity"],
-#   "images": ["image path","image path","image path"]
-# }
+Superman
+--------------------------boundary123
+Content-Disposition: form-data; name="realName"
 
-# {
-#   "nickName": "Hulk",
-#   "realName": "Bruce Banner",
-#   "originDescription": "Scientist who has been exposed to gamma rays that release his inner demon Hulk during times of stress",
-#   "catchPhrase": "'Hulk smash','Hulk breaking'",
-#   "superpowers": ["superhuman strength and speed","endurance","flight"],
-#   "images": ["image path","image path","image path"]
-# }
+Clark Kent
+--------------------------boundary123
+Content-Disposition: form-data; name="originDescription"
 
-# {
-#   "nickName": "Iron Man",
-#   "realName": "Tony Stark",
-#   "originDescription": "A large capitalist and arms dealer, he once fell into the hands of terrorists where he almost died, but escaped by developing his wonderful suit. After that, he decided to fight evil",
-#   "catchPhrase": "'I am iron man!'",
-#   "superpowers": ["high level of intelligence","broad knowledge of science and technology","connection with the world wide web","armored suits"],
-#   "images": ["image path","image path","image path"]
-# }
+He was born Kal-El on the planet Krypton, before being rocketed to Earth as an infant by his scientist father Jor-El, moments before Krypton's destruction
+--------------------------boundary123
+Content-Disposition: form-data; name="catchPhrase"
 
-# {
-#   "nickName": "Flash",
-#   "realName": "Barry Allen",
-#   "originDescription": "His father was sent to prison for the murder of his mother, which he did not commit, and he is determined to prove his father's innocence. Somehow he was struck by lightning and endowed with the ability to quickly move in time and space",
-#   "catchPhrase": "'Because I'm super fast!'",
-#   "superpowers": ["able to move, think and react with superhuman speed","able to read and perceive information at super speed","much tougher than an ordinary person"],
-#   "images": ["image path","image path","image path"]
-# }
+'Look, up in the sky, it's a bird, it's a plane, it's Superman!'
+--------------------------boundary123
+Content-Disposition: form-data; name="superpowers"
+
+["impenetrability", "superpower", "flight", "self-healing", "supervision and super hearing"]
+--------------------------boundary123
+Content-Disposition: form-data; name="images"; filename="image-1.jpg"
+Content-Type: image/jpeg
+
+@C:/path/to/image-1.jpg
+--------------------------boundary123
+Content-Disposition: form-data; name="images"; filename="image-2.jpg"
+Content-Type: image/jpeg
+
+@C:/path/to/image-2.jpg
+--------------------------boundary123
+Content-Disposition: form-data; name="images"; filename="image-3.jpg"
+Content-Type: image/jpeg
+
+@C:/path/to/image-3.jpg
+--------------------------boundary123--
+
+# ========== Spider-Man ==========
+
+# --------------------------boundary123
+# Content-Disposition: form-data; name="nickName"
+
+# Spider-Man
+# --------------------------boundary123
+# Content-Disposition: form-data; name="realName"
+
+# Peter Parker
+# --------------------------boundary123
+# Content-Disposition: form-data; name="originDescription"
+
+# Once he was an ordinary schoolboy, but he was bitten by a radioactive spider and endowed with wonderful abilities. Once he did not stop a petty robber when there was an opportunity and he killed his uncle, which injured the Spider and he decided to fight evil
+# --------------------------boundary123
+# Content-Disposition: form-data; name="catchPhrase"
+
+# 'The more strength, the more responsibility'
+# --------------------------boundary123
+# Content-Disposition: form-data; name="superpowers"
+
+# ["superhuman reflexes", "'Spider-instinct'", "ability to adhere to hard surfaces", "web production"]
+# --------------------------boundary123
+# Content-Disposition: form-data; name="images"; filename="image-1.jpg"
+# Content-Type: image/jpeg
+
+# @C:/path/to/image-1.jpg
+# --------------------------boundary123
+# Content-Disposition: form-data; name="images"; filename="image-2.jpg"
+# Content-Type: image/jpeg
+
+# @C:/path/to/image-2.jpg
+# --------------------------boundary123
+# Content-Disposition: form-data; name="images"; filename="image-3.jpg"
+# Content-Type: image/jpeg
+
+# @C:/path/to/image-3.jpg
+# --------------------------boundary123--
+
+# ========== Batman ==========
+
+# --------------------------boundary123
+# Content-Disposition: form-data; name="nickName"
+
+# Batman
+# --------------------------boundary123
+# Content-Disposition: form-data; name="realName"
+
+# Bruce Wayne
+# --------------------------boundary123
+# Content-Disposition: form-data; name="originDescription"
+
+# His parents were killed in an alley by a petty robber, which inflicted severe mental trauma on the boy and he decided to fight evil
+# --------------------------boundary123
+# Content-Disposition: form-data; name="catchPhrase"
+
+# 'Because I am Batman!'
+# --------------------------boundary123
+# Content-Disposition: form-data; name="superpowers"
+
+# ["intelligence", "extensive knowledge", "martial arts knowledge", "dexterity"]
+# --------------------------boundary123
+# Content-Disposition: form-data; name="images"; filename="image-1.jpg"
+# Content-Type: image/jpeg
+
+# @C:/path/to/image-1.jpg
+# --------------------------boundary123
+# Content-Disposition: form-data; name="images"; filename="image-2.jpg"
+# Content-Type: image/jpeg
+
+# @C:/path/to/image-2.jpg
+# --------------------------boundary123
+# Content-Disposition: form-data; name="images"; filename="image-3.jpg"
+# Content-Type: image/jpeg
+
+# @C:/path/to/image-3.jpg
+# --------------------------boundary123--
+
+# ========== Hulk ==========
+
+# --------------------------boundary123
+# Content-Disposition: form-data; name="nickName"
+
+# Hulk
+# --------------------------boundary123
+# Content-Disposition: form-data; name="realName"
+
+# Bruce Banner
+# --------------------------boundary123
+# Content-Disposition: form-data; name="originDescription"
+
+# Scientist who has been exposed to gamma rays that release his inner demon Hulk during times of stress
+# --------------------------boundary123
+# Content-Disposition: form-data; name="catchPhrase"
+
+# 'Hulk smash', 'Hulk breaking'
+# --------------------------boundary123
+# Content-Disposition: form-data; name="superpowers"
+
+# ["superhuman strength and speed", "endurance", "flight"]
+# --------------------------boundary123
+# Content-Disposition: form-data; name="images"; filename="image-1.jpg"
+# Content-Type: image/jpeg
+
+# @C:/path/to/image-1.jpg
+# --------------------------boundary123
+# Content-Disposition: form-data; name="images"; filename="image-2.jpg"
+# Content-Type: image/jpeg
+
+# @C:/path/to/image-2.jpg
+# --------------------------boundary123
+# Content-Disposition: form-data; name="images"; filename="image-3.jpg"
+# Content-Type: image/jpeg
+
+# @C:/path/to/image-3.jpg
+# --------------------------boundary123--
+
+# ========== Iron Man ==========
+
+# --------------------------boundary123
+# Content-Disposition: form-data; name="nickName"
+
+# Iron Man
+# --------------------------boundary123
+# Content-Disposition: form-data; name="realName"
+
+# Tony Stark
+# --------------------------boundary123
+# Content-Disposition: form-data; name="originDescription"
+
+# A large capitalist and arms dealer, he once fell into the hands of terrorists where he almost died, but escaped by developing his wonderful suit. After that, he decided to fight evil
+# --------------------------boundary123
+# Content-Disposition: form-data; name="catchPhrase"
+
+# 'I am iron man!'
+# --------------------------boundary123
+# Content-Disposition: form-data; name="superpowers"
+
+# ["high level of intelligence", "broad knowledge of science and technology", "connection with the world wide web", "armored suits"]
+# --------------------------boundary123
+# Content-Disposition: form-data; name="images"; filename="image-1.jpg"
+# Content-Type: image/jpeg
+
+# @C:/path/to/image-1.jpg
+# --------------------------boundary123
+# Content-Disposition: form-data; name="images"; filename="image-2.jpg"
+# Content-Type: image/jpeg
+
+# @C:/path/to/image-2.jpg
+# --------------------------boundary123
+# Content-Disposition: form-data; name="images"; filename="image-3.jpg"
+# Content-Type: image/jpeg
+
+# @C:/path/to/image-3.jpg
+# --------------------------boundary123--
+
+# ========== Flash ==========
+
+# --------------------------boundary123
+# Content-Disposition: form-data; name="nickName"
+
+# Flash
+# --------------------------boundary123
+# Content-Disposition: form-data; name="realName"
+
+# Barry Allen
+# --------------------------boundary123
+# Content-Disposition: form-data; name="originDescription"
+
+# His father was sent to prison for the murder of his mother, which he did not commit, and he is determined to prove his father's innocence. Somehow he was struck by lightning and endowed with the ability to quickly move in time and space
+# --------------------------boundary123
+# Content-Disposition: form-data; name="catchPhrase"
+
+# 'Because I'm super fast!'
+# --------------------------boundary123
+# Content-Disposition: form-data; name="superpowers"
+
+# ["able to move, think and react with superhuman speed", "able to read and perceive information at super speed", "much tougher than an ordinary person"]
+# --------------------------boundary123
+# Content-Disposition: form-data; name="images"; filename="image-1.jpg"
+# Content-Type: image/jpeg
+
+# @C:/path/to/image-1.jpg
+# --------------------------boundary123
+# Content-Disposition: form-data; name="images"; filename="image-2.jpg"
+# Content-Type: image/jpeg
+
+# @C:/path/to/image-2.jpg
+# --------------------------boundary123
+# Content-Disposition: form-data; name="images"; filename="image-3.jpg"
+# Content-Type: image/jpeg
+
+# @C:/path/to/image-3.jpg
+# --------------------------boundary123--
+

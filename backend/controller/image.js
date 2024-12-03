@@ -1,13 +1,14 @@
 const createError = require("http-errors");
-const { Superhero, Image } = require("../models");
+const { Image } = require("../models");
 
 module.exports.createImages = async (req, res, next) => {
   try {
-    const { heroId } = req.params;
+    const { params, files } = req;
+    const { heroId } = params;
 
     const images = await Image.bulkCreate(
-      req.files.map((file) => ({
-        image: file.filename,
+      files.map((file) => ({
+        image: `/images/${file.filename}`,
         heroId,
       }))
     );

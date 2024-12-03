@@ -1,18 +1,18 @@
 const { Router } = require("express");
-const checkHeroExistence = require("../middlewares/check.hero.existence.mw");
-const upload = require("../middlewares/file.upload.mw");
+const checkHeroExistenceMw = require("../middlewares/check.hero.existence.mw");
+const uploadImagesMw = require("../middlewares/upload.images.mw");
 const ImageController = require("../controller/image");
-const paginate = require("../middlewares/paginate.mw");
+const paginateMw = require("../middlewares/paginate.mw");
 
 const imageRouter = Router();
 
 imageRouter.post(
   "/:heroId",
-  checkHeroExistence,
-  upload,
+  checkHeroExistenceMw,
+  uploadImagesMw,
   ImageController.createImages
 );
-imageRouter.get("/", paginate, ImageController.getAllImages);
+imageRouter.get("/", paginateMw, ImageController.getAllImages);
 imageRouter.delete("/:id", ImageController.deleteImage);
 
 module.exports = imageRouter;

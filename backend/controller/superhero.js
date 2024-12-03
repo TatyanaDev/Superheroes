@@ -1,20 +1,14 @@
 const createError = require("http-errors");
+const { omitSuperpowers } = require("../utils/omit.superpowers");
 const { Superhero, Superpower, Image } = require("../models");
 
 module.exports.createSuperhero = async (req, res, next) => {
   try {
-    const { body } = req;
+    const { body, files } = req;
 
-    const superhero = await Superhero.create(body);
-
-    if (!superhero) {
-      return next(createError(400, "Error creating superhero"));
-    }
-
-    // Create superpowers
-    if (!body.superpowers?.length) {
-      return next(createError(400, "Superpowers data is missing or invalid"));
-    }
+    const superhero = await Superhero.create({
+      ...omitSuperpowers(body),
+    });
 
     const superpowers = await Superpower.bulkCreate(
       body.superpowers.map((superpower) => ({
@@ -23,25 +17,12 @@ module.exports.createSuperhero = async (req, res, next) => {
       }))
     );
 
-    if (!superpowers) {
-      return next(createError(400, "Error creating superpowers"));
-    }
-
-    // Create images
-    if (!body.images?.length) {
-      return next(createError(400, "Images data is missing or invalid"));
-    }
-
     const images = await Image.bulkCreate(
-      body.images.map((image) => ({
-        image,
+      files.map((file) => ({
+        image: `/images/${file.filename}`,
         heroId: superhero.id,
       }))
     );
-
-    if (!images) {
-      return next(createError(400, "Error creating images"));
-    }
 
     res.status(201).send({
       data: {
@@ -89,26 +70,29 @@ module.exports.getAllSuperheroes = async (req, res, next) => {
 
 module.exports.updateSuperhero = async (req, res, next) => {
   try {
-    const { id } = req.params;
-    const { superpowers, images } = req.body;
+    const { params, body, files } = req;
+    const { id } = params;
 
-    const [, [updatedSuperhero]] = await Superhero.update(req.body, {
-      where: { id },
-      returning: true,
-    });
+    const [, [updatedSuperhero]] = await Superhero.update(
+      omitSuperpowers(req.body),
+      {
+        where: { id },
+        returning: true,
+      }
+    );
 
     await Superpower.destroy({ where: { heroId: id } });
-    await Superpower.bulkCreate(
-      superpowers.map((superpower) => ({
+    const superpowers = await Superpower.bulkCreate(
+      body.superpowers.map((superpower) => ({
         superpower,
         heroId: id,
       }))
     );
 
     await Image.destroy({ where: { heroId: id } });
-    await Image.bulkCreate(
-      images.map((image) => ({
-        image,
+    const images = await Image.bulkCreate(
+      files.map((file) => ({
+        image: `/images/${file.filename}`,
         heroId: id,
       }))
     );
@@ -117,7 +101,13 @@ module.exports.updateSuperhero = async (req, res, next) => {
       return next(createError(400, "Error updating superhero"));
     }
 
-    res.status(200).send({ data: updatedSuperhero });
+    res.status(200).send({
+      data: {
+        ...updatedSuperhero.toJSON(),
+        superpowers,
+        images,
+      },
+    });
   } catch (err) {
     next(err);
   }
@@ -127,11 +117,7 @@ module.exports.deleteSuperhero = async (req, res, next) => {
   try {
     const { id } = req.params;
 
-    const rowsCount = await Superhero.destroy({ where: { id } });
-
-    if (rowsCount !== 1) {
-      return next(createError(404, "Superhero not found"));
-    }
+    await Superhero.destroy({ where: { id } });
 
     res
       .status(200)

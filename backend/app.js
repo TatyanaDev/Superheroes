@@ -1,6 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-const errorHandler = require("./middlewares/error.handler.mw");
+const errorHandlerMw = require("./middlewares/error.handler.mw");
 const { STATIC_PATH } = require("./config/config");
 const router = require("./routes");
 
@@ -14,6 +14,6 @@ app.use("/api", router);
 
 app.use(express.static(STATIC_PATH));
 
-app.use(errorHandler);
+app.use(errorHandlerMw);
 
 module.exports = app;

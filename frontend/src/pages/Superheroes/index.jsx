@@ -1,11 +1,10 @@
-import React from 'react'
-import HeroForm from '../../components/HeroForm/';
-import HeroData from '../../components/HeroData';
+import SuperheroesList from "../../components/SuperheroesList";
+import SuperheroForm from "../../components/SuperheroForm";
 
 const Superheroes = () => (
   <>
-    <HeroForm />
-    <HeroData />
+    <SuperheroForm />
+    <SuperheroesList />
   </>
 );
 

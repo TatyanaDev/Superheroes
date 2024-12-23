@@ -20,7 +20,7 @@ const superheroReducer = (state = initialState, action) => {
 
       return {
         ...state,
-        superheroes: [...state.superheroes, superhero],
+        superheroes: [superhero, ...state.superheroes],
         isFetching: false,
         error: null,
       };
@@ -28,6 +28,7 @@ const superheroReducer = (state = initialState, action) => {
 
     case ACTION_TYPES.CREATE_SUPERHERO_ERROR: {
       const { error } = action.payload;
+
       return {
         ...state,
         isFetching: false,
@@ -47,8 +48,8 @@ const superheroReducer = (state = initialState, action) => {
 
       return {
         ...state,
-        superheroes: state.superheroes.map(({ h }) =>
-          h.id === superhero.id ? superhero : h
+        superheroes: state.superheroes.map((existingSuperhero) =>
+          existingSuperhero.id === superhero.id ? superhero : existingSuperhero
         ),
         isFetching: false,
         error: null,
@@ -107,7 +108,7 @@ const superheroReducer = (state = initialState, action) => {
       return {
         ...state,
         superheroes: state.superheroes.filter(
-          (superhero) => superhero.id !== id
+          (superhero) => superhero.id !== parseInt(id)
         ),
         isFetching: false,
         error: null,

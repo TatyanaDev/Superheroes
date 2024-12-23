@@ -1,8 +1,5 @@
-import React from 'react'
-import Superheroes from './pages/Superheroes';
+import Superheroes from "./pages/Superheroes";
 
-const App = () => {
-  return <Superheroes />;
-};
+const App = () => <Superheroes />;
 
 export default App;

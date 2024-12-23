@@ -42,6 +42,7 @@ module.exports.getAllSuperheroes = async (req, res, next) => {
 
     const superheroes = await Superhero.findAll({
       ...pagination,
+      order: [["createdAt", "DESC"]],
       include: [
         {
           model: Superpower,
@@ -119,9 +120,7 @@ module.exports.deleteSuperhero = async (req, res, next) => {
 
     await Superhero.destroy({ where: { id } });
 
-    res
-      .status(200)
-      .send({ message: `Superhero ${id} has successfully deleted` });
+    res.status(200).send({ data: id });
   } catch (err) {
     next(err);
   }

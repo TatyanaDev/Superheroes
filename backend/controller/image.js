@@ -47,7 +47,7 @@ module.exports.deleteImage = async (req, res, next) => {
       return next(createError(404, "Image not found"));
     }
 
-    res.status(200).send({ message: `Image ${id} has successfully deleted` });
+    res.status(200).send({ data: id });
   } catch (err) {
     next(err);
   }

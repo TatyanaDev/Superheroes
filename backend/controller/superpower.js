@@ -29,9 +29,7 @@ module.exports.deleteSuperpower = async (req, res, next) => {
       return next(createError(404, "Superpower not found"));
     }
 
-    res
-      .status(200)
-      .send({ message: `Superpower ${id} has successfully deleted` });
+    res.status(200).send({ data: id });
   } catch (err) {
     next(err);
   }

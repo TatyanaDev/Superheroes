@@ -2,11 +2,7 @@ const createError = require("http-errors");
 const uploadImagesMw = require("./upload.images.mw");
 
 const parseMultipartRequest = (req, res, next) => {
-  uploadImagesMw(req, res, (err) => {
-    if (err) {
-      return next(createError(400, "File upload error"));
-    }
-
+  uploadImagesMw(req, res, () => {
     if (req.body.superpowers) {
       try {
         req.body.superpowers = JSON.parse(req.body.superpowers);

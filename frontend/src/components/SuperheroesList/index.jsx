@@ -76,7 +76,7 @@ const SuperheroesList = ({
                 {superhero.images.map((imageObj) => (
                   <img
                     key={imageObj.id}
-                    src={`${BASE_URL}/${imageObj.image}`}
+                    src={`${BASE_URL}${imageObj.image}`}
                     alt={superhero.nickName}
                     className="img-100 mr-5 mb-5"
                   />
